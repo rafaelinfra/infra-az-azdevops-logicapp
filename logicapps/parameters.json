@@ -1,0 +1,33 @@
+    {
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "logicAppApiVersion": {
+            "value": "2016-10-01"
+        },
+        "name": {
+            "value": "<NOME DO LOGIC APP DE PRODUÇÃO>"
+        },
+        "location": {
+            "value": "eastus2"
+        },
+        "userassgind": {
+            "value": "/subscriptions/<SUBSCRIPTIONID>>/resourcegroups/<RESOURCEGROUP>/providers/Microsoft.ManagedIdentity/userAssignedIdentities/<USERASSIGNED>"
+        },
+        "connectionidblob": {
+            "value": "/subscriptions/<SUBSCRIPTIONID>/resourceGroups/<RESOURCEGROUP>/providers/Microsoft.Web/connections/azureblob"
+        },
+        "connectionidoffice": {
+            "value": "/subscriptions/<SUBSCRIPTIONID>/resourceGroups/<RESOURCEGROUP>/providers/Microsoft.Web/connections/office365"
+        },
+        "connectionidsharepoint": {
+            "value": "/subscriptions/<SUBSCRIPTIONID>/resourceGroups/<RESOURCEGROUP>/providers/Microsoft.Web/connections/sharepointonline"
+        },
+        "connectionidpowerbi": {
+            "value": "/subscriptions/<SUBSCRIPTIONID>/resourceGroups/<RESOURCEGROUP>/providers/Microsoft.Web/connections/powerbi"
+        },
+        "workflowSchema": {
+            "value": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#"
+        }
+}
+}

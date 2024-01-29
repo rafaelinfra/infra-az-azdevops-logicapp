@@ -1,0 +1,14 @@
+jobs:
+- job: NewLogicapps
+  displayName: Implantação de novo Logic apps em produção
+  pool:
+    vmImage: 'ubuntu-latest'
+    
+  steps:
+  - task: AzurePowerShell@5
+    inputs:
+      azureSubscription: '<incluir a service connection>'
+      scriptType: filePath
+      scriptPath: $(Build.SourcesDirectory)/deploy_logic_apps.ps1
+      azurePowerShellVersion: latestVersion
+      scriptArguments: -armTemplate "$(System.DefaultWorkingDirectory)/logicapps/template.json" -armParameters "$(System.DefaultWorkingDirectory)/logicapps/parameters.json"
