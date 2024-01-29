@@ -1,0 +1,91 @@
+{
+    "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "logicAppApiVersion": {
+            "type": "string"
+        },
+        "name": {
+            "type": "string"
+        },
+        "location": {
+            "type": "string"
+        },
+        "workflowSchema": {
+            "type": "string"
+        },
+        "userassgind": {
+            "type": "string"
+        },
+        "connectionidblob": {
+            "type": "string"
+        },
+        "connectionidoffice": {
+            "type": "string"
+        },
+        "connectionidsharepoint": {
+            "type": "string"
+        },
+        "connectionidpowerbi": {
+            "type": "string"
+        },
+        "logicAppState": {
+            "type": "string",
+            "defaultValue": "Enabled"
+        }
+    },
+    "resources": [
+        {
+            "apiVersion": "[parameters('logicAppApiVersion')]",
+            "name": "[parameters('name')]",
+            "type": "Microsoft.Logic/workflows",
+            "location": "[parameters('location')]",
+            "identity": {
+                "type": "UserAssigned",
+                "userAssignedIdentities": {
+                  "[parameters('userassgind')]": {}
+                }
+            },
+            "tags": {
+                // INCLUIR AS TAGS DO RECURSO DE PRODUÇÃO
+            },
+            "properties": {
+                "definition": {},// INCLUIR O DEFINITION DO LOGIC APP DE DEV
+                "parameters": {
+                    "$connections": {
+                        "value": {
+                            "azureblob": {
+                                "connectionId": "[parameters('connectionidblob')]",
+                                "connectionName": "azureblob",
+                                "connectionProperties": {
+                                    "authentication": {
+                                        "identity": "[parameters('userassgind')]",
+                                        "type": "ManagedServiceIdentity"
+                                    }
+                                },
+                                "id": "/subscriptions/<SUBSCRIPTIONID>/providers/Microsoft.Web/locations/eastus2/managedApis/azureblob"
+                            },
+                            "office365": {
+                                "connectionId": "[parameters('connectionidoffice')]",
+                                "connectionName": "office365",
+                                "id": "/subscriptions/<SUBSCRIPTIONID>/providers/Microsoft.Web/locations/eastus2/managedApis/office365"
+                            },
+                            "sharepointonline": {
+                                "connectionId": "[parameters('connectionidsharepoint')]",
+                                "connectionName": "sharepointonline",
+                                "id": "/subscriptions/<SUBSCRIPTIONID>/providers/Microsoft.Web/locations/eastus2/managedApis/sharepointonline"
+                            },
+                            "powerbi": {
+                                "connectionId": "[parameters('connectionidpowerbi')]",
+                                "connectionName": "powerbi-4",
+                                "id": "/subscriptions/<SUBSCRIPTIONID>/providers/Microsoft.Web/locations/eastus2/managedApis/powerbi"
+                            }
+                        }
+                    }
+                },
+                "state": "[parameters('logicAppState')]"
+            }
+        }
+
+    ]
+}
